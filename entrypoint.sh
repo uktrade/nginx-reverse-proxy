@@ -28,7 +28,10 @@ http {
       server ${SERVER2} max_fails=3 fail_timeout=30s;
   }
 
-  log_format main '$http_x_forwarded_for - $remote_user [$time_local] ''"$request" $status $body_bytes_sent "$http_referer" ' '"$http_user_agent"' ;
+
+  log_format main '\$http_x_forwarded_for - \$remote_user [\$time_local] '
+                  '"\$request" \$status \$body_bytes_sent "\$http_referer" '
+                  '"\$http_user_agent"' ;
 
   access_log /var/log/nginx/access.log main;
   error_log /var/log/nginx/error.log;
