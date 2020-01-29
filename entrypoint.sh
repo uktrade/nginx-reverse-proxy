@@ -4,8 +4,7 @@ set -euo pipefail
 
 # Validate environment variables
 : "${PUBLIC_HOST:?Set PUBLIC_HOST using --env}"
-: "${SERVER1:?Set SERVER1 using --env}"
-: "${SERVER2:?Set SERVER2 using --env}"
+: "${SERVER:?Set SERVER using --env}"
 : "${SECRET_TOKEN:?Set SECRET_TOKEN using --env}"
 
 echo ">> generating self signed cert"
@@ -24,8 +23,7 @@ events {
 
 http {
   upstream upstream_server{
-      server ${SERVER1} max_fails=3 fail_timeout=30s;
-      server ${SERVER2} max_fails=3 fail_timeout=30s;
+      server ${SERVER};
   }
 
 
