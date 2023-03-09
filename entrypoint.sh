@@ -3,9 +3,10 @@
 set -euo pipefail
 
 # Validate environment variables
-: "${PUBLIC_HOST:?Set PUBLIC_HOST using --env}"
+#: "${PUBLIC_HOST:?Set PUBLIC_HOST using --env}"
+#: "${SERVER:?Set SERVER using --env}"
+#: "${SECRET_TOKEN:?Set SECRET_TOKEN using --env}"
 : "${SERVER:?Set SERVER using --env}"
-: "${SECRET_TOKEN:?Set SECRET_TOKEN using --env}"
 
 echo ">> generating self signed cert"
 openssl req -x509 -newkey rsa:4086 \
@@ -51,9 +52,8 @@ http {
     client_max_body_size 600M;
   
     location / {
-        proxy_pass https://upstream_server;
-        proxy_set_header Host ${PUBLIC_HOST};
-        proxy_set_header CDN_SECRET ${SECRET_TOKEN};
+        proxy_set_header Host \$host;
+        proxy_pass http://upstream_server;
     } 
   }
 }
