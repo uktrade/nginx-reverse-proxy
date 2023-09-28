@@ -54,8 +54,9 @@ http {
     location / {
         proxy_set_header Host \$host;
         proxy_set_header x-forwarded-for \$proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Prefix /;
         proxy_pass http://upstream_server;
-    } 
+    }
   }
 }
 EOF
