@@ -54,6 +54,7 @@ http {
         proxy_pass https://upstream_server;
         proxy_set_header Host ${PUBLIC_HOST};
         proxy_set_header CDN_SECRET ${SECRET_TOKEN};
+        proxy_set_header X-Forwarded-Prefix /;
     } 
   }
 }
